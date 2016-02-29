@@ -96,3 +96,9 @@ let newNums = strings.flatMap { (str: String) -> Int? in
 
 newNums
 
+// Slices
+nums
+nums[1..<nums.endIndex] // Not an array
+Array(nums[1..<nums.endIndex])
+
+
