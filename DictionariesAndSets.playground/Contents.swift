@@ -28,3 +28,30 @@ extension Dictionary {
         }))
     }
 }
+
+// Using Sets Inside Closures
+extension SequenceType where Generator.Element: Hashable {
+    func unique() -> [Generator.Element] {
+        var seen: Set<Generator.Element> = []
+        return filter {
+            if seen.contains($0) {
+                return false
+            } else {
+                seen.insert($0)
+                return true
+            }
+        }
+    }
+}
+
+// CollectionType -> SequenctType -> GeneratorType
+
+// generate a list of Fibonacci
+class FibsGenerator:GeneratorType {
+    var state = (0, 1)
+    func next() -> Int? {
+        let upcomingNumber = state.0
+        state = (state.1, state.0+state.1)
+        return upcomingNumber
+    }
+}
