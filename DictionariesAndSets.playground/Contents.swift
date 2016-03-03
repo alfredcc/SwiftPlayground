@@ -30,20 +30,16 @@ extension Dictionary {
 }
 
 // Using Sets Inside Closures
-extension SequenceType where Generator.Element: Hashable {
-    func unique() -> [Generator.Element] {
-        var seen: Set<Generator.Element> = []
-        return filter {
-            if seen.contains($0) {
-                return false
-            } else {
-                seen.insert($0)
-                return true
-            }
+extension SequenceType where Generator.Element: Hashable { func unique() -> [Generator.Element] {
+    var seen: Set<Generator.Element> = []
+    return  filter {
+        if seen.contains($0){ return false
+        } else { seen.insert($0)
+            return true
+        }
         }
     }
 }
-
 // CollectionType -> SequenctType -> GeneratorType
 
 // generate a list of Fibonacci
