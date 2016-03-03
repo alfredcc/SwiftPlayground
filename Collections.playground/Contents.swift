@@ -6,6 +6,7 @@ protocol QueueType {
     // The Type of elements held in self
     typealias Element
     // Enqueue `newElement` to `self`
+    mutating func enqueue(newElement: Element)
     // Dequeue an element from `self`
     mutating func dequeue() -> Element?
 }
