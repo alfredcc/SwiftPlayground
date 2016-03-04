@@ -62,3 +62,28 @@ struct Queue<Element>: QueueType {
         return left.removeLast()
     }
 }
+
+// CollectionType
+extension Queue: CollectionType {
+    var startIndex: Int { return 0 }
+    var endIndex: Int { return left.count + right.count }
+    subscript(idx: Int ) -> Element {
+        precondition((0..<endIndex).contains(idx), "Index out of bounds")
+        if idx < left.endIndex{
+            return left [left.count - idx.successor()]
+        } else {
+            return right[idx - left.count]
+        }
+    }
+}
+
+// ArrayLiteralConvertible
+extension Queue:ArrayLiteralConvertible {
+    init(arrayLiteral elements: Element...) {
+        self.left = elements.reverse()
+        self.right = []
+    }
+}
+
+let queue: Queue = [2,4,8]
+
