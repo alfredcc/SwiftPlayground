@@ -42,12 +42,12 @@ let people = [
     [first: "Yu",last: "Yu"],
     [first: "Chao", last: "Race"]
 ]
-
-let lastDescriptor = NSSortDescriptor(key: last, ascending: true, selector: "localizedCaseInsensitiveCompare:")
-let firstDescriptor = NSSortDescriptor(key: first, ascending: true, selector: "localizedCaseInsensitiveCompare:")
-
-let descriptor = [lastDescriptor, firstDescriptor]
-let sortedArray = (people as NSArray).sortedArrayUsingDescriptors(descriptor)
+//
+//let lastDescriptor = NSSortDescriptor(key: last, ascending: true, selector: "localizedCaseInsensitiveCompare:")
+//let firstDescriptor = NSSortDescriptor(key: first, ascending: true, selector: "localizedCaseInsensitiveCompare:")
+//
+//let descriptor = [lastDescriptor, firstDescriptor]
+//let sortedArray = (people as NSArray).sortedArrayUsingDescriptors(descriptor)
 
 var strings = ["Hello", "hallo", "Hallo","hello"]
 
@@ -58,3 +58,11 @@ strings.sortInPlace {
 let sortedArrays = people.sort { $0[last] < $1[last] }
 
 sortedArrays
+
+let sortedArray = people.sort { (lhs, rhs) -> Bool in
+    return rhs[first].flatMap{
+        lhs[first]?.localizedCaseInsensitiveCompare($0)
+    } == .OrderedAscending
+}
+
+
