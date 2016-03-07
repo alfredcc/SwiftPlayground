@@ -63,3 +63,48 @@ extension File {
 
 // Overloading subscripts
 
+let fibs = [0, 1, 1, 2, 3, 5]
+
+let first = fibs[0]
+fibs[1..<3]
+
+struct RangeStart<I: ForwardIndexType> { let start: I }
+struct RangeEnd<I: ForwardIndexType> { let end: I }
+
+postfix operator ..< {}
+postfix func ..<<I: ForwardIndexType>(lhs: I) -> RangeStart<I> {
+    return RangeStart(start: lhs)
+}
+
+prefix operator ..< {}
+prefix func ..<<I: ForwardIndexType>(rhs: I) -> RangeEnd<I> {
+    return RangeEnd(end: rhs)
+}
+
+extension CollectionType {
+    subscript(r: RangeStart<Self.Index>) -> SubSequence {
+        return self[r.start..<self.endIndex]
+    }
+    subscript(r: RangeEnd<Self.Index>) -> SubSequence {
+        return self[self.startIndex..<r.end]
+    }
+}
+
+extension Dictionary {
+    subscript(key: Key, or defaultValue: Value) -> Value {
+        get {
+            return self[key] ?? defaultValue
+        } set(newValue) {
+            self[key] = newValue }
+    }
+}
+
+extension SequenceType where Generator.Element: Hashable {
+    func frequencies() -> [Generator.Element: Int] {
+        var result: [Generator.Element: Int] = [:]
+        for x in self {
+            result[x, or: 0] += 1
+        }
+        return result
+    }
+}
