@@ -45,3 +45,21 @@ let fx = inc(&y)
 print(fx())
 print(fx())
 print(y)
+
+
+func incref(i: UnsafeMutablePointer<Int>) -> () -> Int {
+    return {
+        i.memory += 1
+        return i.memory
+    }
+}
+
+let fun: () -> Int
+do {
+    var array = [0]
+    fun = incref(&array)
+}
+
+fun()
+fun()
+fun()
