@@ -27,25 +27,44 @@ func foo(@noescape code: (() -> String)) -> String {
 }
 
 print(foo() {"abc"})
+//
+//// 摘录来自 http://nshint.io/blog/2015/10/23/noescape-attribute/
+///// >closures (and functions) annotated with @noescape can only be passed as @noescape parameters.
+//
+//// we cannot run it asynchronously:
+//func async(@noescape code: () -> Void ) {
+//    dispatch_async(dispatch_get_main_queue(), code)
+//}
+//
+//// we can’t store it
+//func store(@noescape code: () -> Void) {
+//    let codeFunc: () -> Void = code
+//    codeFunc()
+//}
+//
+//// we can’t capture it in another non-@noescape closure
+//func capture(@noescape code: () -> Void) {
+//    let capured = {
+//        code()
+//    }
+//    capured()
+//}
 
-// 摘录来自 http://nshint.io/blog/2015/10/23/noescape-attribute/
-/// >closures (and functions) annotated with @noescape can only be passed as @noescape parameters.
+//func funcBuild<T, U, V>(f: T -> U, _ g: V -> T)
+//    -> V -> U {
+//    return {
+//        f(g($0))
+//    }
+//}
 
-// we cannot run it asynchronously:
-func async(@noescape code: () -> Void ) {
-    dispatch_async(dispatch_get_main_queue(), code)
-}
+let arr = [1,2,10]
 
-// we can’t store it
-func store(@noescape code: () -> Void) {
-    let codeFunc: () -> Void = code
-    codeFunc()
-}
-
-// we can’t capture it in another non-@noescape closure
-func capture(@noescape code: () -> Void) {
-    let capured = {
-        code()
+let max = arr.reduce(0) { (pre: Int, element: Int) -> Int in
+    if pre > element {
+        return pre
+    } else {
+        return element
     }
-    capured()
 }
+
+max
