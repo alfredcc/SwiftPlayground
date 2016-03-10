@@ -27,7 +27,6 @@ public struct Queue<T>: ArrayLiteralConvertible {
 }
 
 var q = Queue(arrayLiteral: [1, 2, 3])
-q.elements = [4, 5]
 
 
 while !q.isEmpty { q.pop() }
