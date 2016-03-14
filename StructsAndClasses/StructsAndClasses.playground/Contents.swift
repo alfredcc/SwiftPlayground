@@ -90,4 +90,29 @@ extension GaussianBlur {
     }
 }
 
+var i = 0
 
+func uniqueInteger() -> Int {
+    i += 1
+    return i
+}
+
+uniqueInteger()
+uniqueInteger()
+uniqueInteger()
+
+let otherFunction: () -> Int = uniqueInteger
+otherFunction()
+otherFunction()
+
+func uniqueIntegerProvider() -> () -> Int {
+    var i = 0
+    return {
+        i += 1
+        return i
+    }
+}
+
+let d: () -> Int = uniqueIntegerProvider()
+d()
+d()
